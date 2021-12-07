@@ -27,8 +27,8 @@ public class ItemFill {
         return ItemCategory.getItemCategories().get(rnd);
     }
 
-    public int howManyItems;
-    public int howManyNeedItem;
+    private int howManyItems;
+    private int howManyNeedItem;
 
     public void fill(InventoryHolder holder) {
         if (!(holder instanceof Chest)) return;
