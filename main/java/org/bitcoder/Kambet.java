@@ -8,36 +8,38 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Kambet extends JavaPlugin implements Listener {
+public class Kambet extends JavaPlugin implements Listener {
     ItemFill itemFill = new ItemFill();
 
-    public static final ItemStack[] defaultStack = new ItemStack[]{
-                                                new ItemStack(Material.TORCH),
-                                                new ItemStack(Material.BEDROCK)
+    private static final ItemStack[] defaultStack = new ItemStack[]{
+            new ItemStack(Material.TORCH),
+            new ItemStack(Material.BEDROCK)
     };
 
-    public static final ItemStack[] combatStack = new ItemStack[]{
+    private static final ItemStack[] combatStack = new ItemStack[]{
             new ItemStack(Material.DIAMOND_SWORD),
             new ItemStack(Material.IRON_SWORD)
     };
 
-    public static final
-        ItemCategory defaultCategory = new ItemCategory(100, defaultStack);
+    private static final
+    ItemCategory defaultCategory = new ItemCategory(defaultStack, "blocks");
 
-    public static final
-        ItemCategory combatCategory = new ItemCategory(100, combatStack);
+    private static final
+    ItemCategory combatCategory = new ItemCategory(combatStack, "mortal");
 
 
     @Override
     public void onEnable() {
         getLogger().info("Task42");
         getServer().getPluginManager().registerEvents(this, this);
-        itemFill.addItem(defaultCategory);
-        itemFill.addItem(combatCategory);
+
+        ItemCategory.putCategory(defaultCategory);
+        ItemCategory.putCategory(combatCategory);
+
     }
 
     @EventHandler
-    public void onInventoryOpenEvent(InventoryOpenEvent e){
+    public void onInventoryOpenEvent(InventoryOpenEvent e) {
         InventoryHolder holder = e.getInventory().getHolder();
         System.out.println(1);
 
@@ -47,7 +49,6 @@ public final class Kambet extends JavaPlugin implements Listener {
         itemFill.fill(holder);
 
     }
-
 
 
 }

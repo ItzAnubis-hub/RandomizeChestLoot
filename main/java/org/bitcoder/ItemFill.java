@@ -1,5 +1,6 @@
 package org.bitcoder;
 
+import lombok.SneakyThrows;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -9,23 +10,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+@SuppressWarnings("all")
 public class ItemFill {
-    public final  Map<ItemCategory, ItemStack[]> chanceOfFill = new HashMap<>();
-    private  final Random randOfItem   = new Random();
-
-    public void addItem(ItemCategory category) {
-        chanceOfFill.put(category, category.itemStacks);
-        chanceOfFill.values().forEach(System.out::println);
-    }
+    private final Map<ItemCategory, ItemStack[]> chanceOfFill = new HashMap<>();
+    private final Random randOfItem = new Random();
 
     private ItemStack randomizeItem(ItemCategory itemCategory) {
-        int rnd = new Random().nextInt(itemCategory.itemStacks.length);
-        return itemCategory.itemStacks[rnd];
+        ItemStack[] stacks = ItemCategory.getItemCategory(itemCategory.getName()).getItemStacks();
+        int rnd = randOfItem.nextInt(ItemCategory.getItemCategory(itemCategory.getName()).getItemStacks().length);
+        return stacks[rnd];
     }
 
+    @SneakyThrows
     private ItemCategory randomizeCategory() {
-        int rnd = new Random().nextInt(ItemCategory.itemCategories.size());
-        return ItemCategory.itemCategories.get(rnd);
+        int rnd = randOfItem.nextInt(ItemCategory.getItemCategories().size());
+        return ItemCategory.getItemCategories().get(rnd);
     }
 
     public int howManyItems;
