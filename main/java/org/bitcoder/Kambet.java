@@ -43,8 +43,8 @@ public class Kambet extends JavaPlugin implements Listener {
         InventoryHolder holder = e.getInventory().getHolder();
         System.out.println(1);
 
-        itemFill.howManyNeedItem = 5;
-        itemFill.howManyItems = 21;
+        itemFill.setHowManyItems(5);
+        itemFill.setHowManyNeedItem(21);
 
         itemFill.fill(holder);
 

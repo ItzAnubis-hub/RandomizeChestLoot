@@ -14,6 +14,24 @@ import java.util.Random;
 public class ItemFill {
     private final Map<ItemCategory, ItemStack[]> chanceOfFill = new HashMap<>();
     private final Random randOfItem = new Random();
+    private int howManyItems;
+    private int howManyNeedItem;
+
+    public int getHowManyItems() {
+        return howManyItems;
+    }
+
+    public void setHowManyItems(int howManyItems) {
+        this.howManyItems = howManyItems;
+    }
+
+    public int getHowManyNeedItem() {
+        return howManyNeedItem;
+    }
+
+    public void setHowManyNeedItem(int howManyNeedItem) {
+        this.howManyNeedItem = howManyNeedItem;
+    }
 
     private ItemStack randomizeItem(ItemCategory itemCategory) {
         ItemStack[] stacks = ItemCategory.getItemCategory(itemCategory.getName()).getItemStacks();
@@ -26,9 +44,6 @@ public class ItemFill {
         int rnd = randOfItem.nextInt(ItemCategory.getItemCategories().size());
         return ItemCategory.getItemCategories().get(rnd);
     }
-
-    private int howManyItems;
-    private int howManyNeedItem;
 
     public void fill(InventoryHolder holder) {
         if (!(holder instanceof Chest)) return;
